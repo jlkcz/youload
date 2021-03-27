@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% import "bootstrap/form.html" as wtf %}
+{% block content %}
+<div class="container">
+	<div class="row-fluid">
+	       {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+	{% endwith %}
+		<div class="col-sm" style="text-align:center;">
+			<h1>Stáhni</h1>
+			{{ wtf.render_form(form, method="post", form_type="horizontal") }}
+		</div>
+	</div>
+</div>
+{% endblock %}
