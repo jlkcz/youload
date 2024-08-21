@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% import "bootstrap4/form.html" as wtf %}
+{% block content %}
+<div class="container-fluid">
+	<div class="row-fluid">
+	       {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+	{% endwith %}
+			<h1>Chybové hlášení</h1>
+			<dl class="row">
+			  <dt class="col-sm-3">URL</dt>
+				<dd class="col-sm-9">{{row.url}}</dd>
+			  <dt class="col-sm-3">Vytvořeno</dt>
+				<dd class="col-sm-9">{{row.created_at}}</dd>
+			</dl>
+			<div class="card">
+			<div class="card-body">
+				<pre>{{row.errorlog}}</pre>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

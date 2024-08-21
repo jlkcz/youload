@@ -1,2 +1,5 @@
 config.py
 __pycache__
+venv
+downloaded/*
+app.db

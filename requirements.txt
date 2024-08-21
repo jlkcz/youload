@@ -1,12 +1,5 @@
-Bootstrap-Flask==1.5.1
-click==7.1.2
-Flask==1.1.2
-Flask-WTF==0.14.3
-itsdangerous==1.1.0
-Jinja2==2.11.3
-MarkupSafe==1.1.1
-six==1.15.0
-uwsgi-tasks==0.7.3
-Werkzeug==1.0.1
-WTForms==2.3.3
-youtube-dl==2021.3.14
+Bootstrap-Flask==2.4.0
+Flask==3.0.3
+Flask-WTF==1.2.1
+yt-dlp==2024.8.6
+flask_simplelogin==0.1.3

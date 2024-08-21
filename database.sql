@@ -1,0 +1,21 @@
+PRAGMA journal_mode=WAL;
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE "urls" (
+	"id"	INTEGER NOT NULL,
+	"url"	TEXT NOT NULL,
+	"audio"	INTEGER DEFAULT 0,
+	"state"	INTEGER DEFAULT NULL,
+	"errorlog"	TEXT DEFAULT NULL,
+	"created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+
+CREATE TABLE "files" (
+	"id"	INTEGER NOT NULL,
+	"url"	INTEGER NOT NULL,
+	"filename"	TEXT NOT NULL,
+	FOREIGN KEY("url") REFERENCES urls(id),
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+

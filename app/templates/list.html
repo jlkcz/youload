@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% import "bootstrap4/form.html" as wtf %}
+{% block content %}
+<div class="container-fluid">
+	<div class="row-fluid">
+	       {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+	{% endwith %}
+			<h1>Seznam stažených souborů</h1>
+  		<table class="table table-fluid table-bordered">
+				<thead class="thead-dark">
+				<tr>
+					<th>ID</th>
+					<th>URL</th>
+					<th>Zadáno</th>
+					<th>A/V</th>
+					<th>Stav</th>
+					<th>Stáhnout soubor</th>
+				</tr>
+				</thead>
+				<tbody>
+					{% for row in items %}
+					<tr class="{%if row.state is none%}table-primary{% elif row.state == 0 %}table-success{%elif row.state == 99%}table-secondary{%else%}table-danger{%endif%}" >
+						<td>{{row.id}}</td>
+						<td><a href="{{row.url}}">{{row.url}}</a></td>
+						<td>{{row.created_at}}</td>
+						<td style="font-size:150%;">{% if row.audio == 1%}🔊{%else%}🎥{%endif%}</td>
+						<td>{%if row.state is none%}Čeká{% elif row.state == 0 %}OK{%elif row.state == 99%}Smazáno{%else%}Error{%endif%}</td>
+						<td>
+							{% if row.state is none %}&nbsp;
+							{% elif row.state == 0 %}
+								{% set filelist = row.files.split(';') %}
+								{% for file in filelist %}
+								{{loop.index}}) <a href="/down/{{file}}">{{file}}</a><br>
+								{%endfor%}
+							{%elif row.state == 99 %}
+								Stáhnout znovu TODO
+							{% else %}
+							  <a href="/errorlog/{{row.id}}">Zobrazit chybu</a>
+							{%endif%}
+						</td>
+					</tr>
+					{% endfor %}
+			</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}
