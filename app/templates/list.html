@@ -38,7 +38,7 @@
 								{{loop.index}}) <a href="/down/{{file}}">{{file}}</a><br>
 								{%endfor%}
 							{%elif row.state == 99 %}
-								Stáhnout znovu TODO
+							  <a href="/redownload/{{row.id}}">Stáhnout znovu</a>
 							{% else %}
 							  <a href="/errorlog/{{row.id}}">Zobrazit chybu</a>
 							{%endif%}

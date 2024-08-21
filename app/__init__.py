@@ -15,7 +15,6 @@ from yt_dlp.utils import DownloadError
 from uwsgi_tasks import task, TaskExecutor
 
 app = Flask(__name__)
-app.config.from_pyfile('../config.py')
 app.config['SECRET_KEY'] = 'veryrandomstringindeed'
 app.config['SIMPLELOGIN_USERNAME'] = 'user'
 app.config['SIMPLELOGIN_PASSWORD'] = 'pass'
@@ -167,3 +166,15 @@ def down(filename):
     return send_from_directory(
         directory, filename, as_attachment=True
     )
+
+@app.route("/redownload/<int:urlid>")
+@login_required
+def redownload(urlid):
+    con = get_db()
+    cur = con.cursor()
+    cur.execute("INSERT INTO urls (url, audio) SELECT url, audio FROM urls WHERE id=?", (urlid, ))
+    con.commit()
+    run_downloader()
+    flash(f'Znovustahování úspěšně spuštěno', 'success')
+    return redirect(url_for('list'))
+
