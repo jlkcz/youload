@@ -12,9 +12,10 @@ This is a simple yt-dlp web based frontend, based on flask. It supports download
 4. install dependencies: pip install -r requirements.txt
 5. Make sure you have `ffmpeg` installed in `PATH`
 6. create downloaded folder in top folder: `mkdir downloaded`
-7. edit `app/__init__.py` for setting username/password
-8. try running it by Flask to verify everything is working: `FLASK_DEBUG=True flask run`
-9. Deploy using uwsgi, it counts on using uwsgi mules
-10. Set cron to run `deleteold.py` to keep sane amount of old entries
+7. create database file: `cat database.sql | sqlite3 app.db`
+8. edit `app/__init__.py` for setting username/password
+9. try running it by Flask to verify everything is working: `FLASK_DEBUG=True flask run`
+10. Deploy using uwsgi, it counts on using uwsgi mules
+11. Set cron to run `deleteold.py` to keep sane amount of old entries
 
 
