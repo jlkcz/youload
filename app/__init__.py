@@ -15,9 +15,9 @@ from yt_dlp.utils import DownloadError
 from uwsgi_tasks import task, TaskExecutor
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'veryrandomstringindeed'
-app.config['SIMPLELOGIN_USERNAME'] = 'user'
-app.config['SIMPLELOGIN_PASSWORD'] = 'pass'
+app.config.from_pyfile('../config.py')
+app.config["DOWNLOADED_DIR"] = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../downloaded")
+
 
 bootstrap = Bootstrap4(app)
 SimpleLogin(app)
@@ -94,7 +94,7 @@ class DownloadForm(FlaskForm):
 #actual task for downloading
 @task(executor=TaskExecutor.AUTO)
 def run_downloader():
-    os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), "../downloaded"))
+    os.chdir(app.config["DOWNLOADED_DIR"])
     con = get_db()
     cur = con.cursor()
     cur.execute("SELECT * FROM urls WHERE state IS NULL ORDER BY id")
@@ -162,7 +162,7 @@ def errorlog(urlid):
 @app.route("/down/<filename>")
 @login_required
 def down(filename):
-    directory = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../downloaded")
+    directory = app.config["DOWNLOADED_DIR"]
     return send_from_directory(
         directory, filename, as_attachment=True
     )
