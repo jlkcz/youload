@@ -1,12 +1,8 @@
-import datetime
 import os
 import sqlite3
-import time
-from operator import attrgetter
-from pprint import pprint
 
 import yt_dlp as youtube_dl
-from flask import (Flask, flash, g, redirect, render_template, request,
+from flask import (Flask, flash, g, redirect, render_template,
                    send_from_directory, url_for)
 from flask_bootstrap import Bootstrap4
 from flask_simplelogin import SimpleLogin, login_required
@@ -203,5 +199,5 @@ def redownload(urlid):
     )
     con.commit()
     run_downloader()
-    flash(f"Znovustahování úspěšně spuštěno", "success")
+    flash("Znovustahování úspěšně spuštěno", "success")
     return redirect(url_for("list"))
